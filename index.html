@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Professional Profile - Your Name</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class' };
+  </script>
+
+  <!-- Apply theme BEFORE rendering -->
+  <script>
+    (function() {
+      const storedTheme = localStorage.getItem('theme') || 'dark';
+      if (storedTheme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    })();
+  </script>
+
+  <!-- QRCode lib -->
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <style>
+    /* Stylish background shapes */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -100px;
+      left: -100px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, #4f46e5, #3b82f6);
+      opacity: 0.2;
+      border-radius: 50%;
+      z-index: -1;
+    }
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -100px;
+      right: -100px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, #f43f5e, #fbbf24);
+      opacity: 0.2;
+      border-radius: 50%;
+      z-index: -1;
+    }
+    /* Frosted glass effect for cards */
+    .frosted { backdrop-filter: blur(10px); background-color: rgba(255,255,255,0.1); }
+    .dark .frosted { background-color: rgba(0,0,0,0.3); }
+  </style>
+</head>
+
+<body class="bg-gray-100 dark:bg-gray-900 font-sans text-gray-800 dark:text-gray-200 transition-colors duration-500">
+
+  <!-- Top Bar with Stylish Toggle -->
+  <div class="flex justify-end p-6">
+    <label class="inline-flex items-center cursor-pointer select-none">
+      <input type="checkbox" id="darkModeToggle" class="sr-only" />
+      <div class="w-14 h-7 rounded-full relative transition-colors bg-gray-300 dark:bg-gray-600">
+        <div id="toggleKnob" class="absolute left-1 top-1 w-5 h-5 bg-white rounded-full shadow-md transition-transform"></div>
+      </div>
+    </label>
+  </div>
+
+  <!-- Hero Section -->
+  <div class="text-center py-16">
+    <h1 class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-indigo-600">GITHIN V</h1>
+    <p class="mt-4 text-xl text-gray-600 dark:text-gray-300">Embedded Systems & Software Architect | 15+ Years Experience</p>
+  </div>
+
+  <!-- Profile Card -->
+  <div class="max-w-4xl mx-auto p-6 frosted rounded-2xl shadow-xl flex flex-col md:flex-row items-center md:items-start">
+    <div class="w-40 h-40 rounded-full overflow-hidden shadow-md border-4 border-indigo-500">
+      <img src="githinv.png" alt="Profile Photo" class="w-full h-full object-cover" />
+    </div>
+
+    <div class="md:ml-8 mt-6 md:mt-0 flex-1">
+      <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+        Experienced Electronic & Software Architect with over 15 years of expertise in designing, developing, and optimizing embedded systems and software solutions. Skilled in system architecture, firmware, and technical leadership across multiple domains.
+      </p>
+      <div class="mt-6 space-y-2">
+        <p><strong>📍 Address:</strong> Edathundil House, Punthala-689509, Alappuzha, Kerala, India</p>
+        <p><strong>📧 Email:</strong> <a href="mailto:vgithin@gmail.com" class="text-indigo-500 hover:underline">youremail@example.com</a></p>
+        <p><strong>📞 Phone:</strong> +91-9986613510 </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Experience Section -->
+  <div class="max-w-4xl mx-auto p-6 mt-8 frosted rounded-2xl shadow-xl">
+    <h2 class="text-3xl font-bold text-indigo-600 mb-4">Experience</h2>
+    <ul class="space-y-6">
+      <li>
+        <h3 class="text-xl font-semibold">Senior Embedded Architect</h3>
+        <p class="text-sm text-gray-500 dark:text-gray-400">XYZ Technologies | 2015 - Present</p>
+        <p class="mt-2 text-gray-700 dark:text-gray-300">Leading embedded system architecture, software design, and cross-functional development for cutting-edge products.</p>
+      </li>
+      <li>
+        <h3 class="text-xl font-semibold">Embedded Software Engineer</h3>
+        <p class="text-sm text-gray-500 dark:text-gray-400">ABC Electronics | 2010 - 2015</p>
+        <p class="mt-2 text-gray-700 dark:text-gray-300">Developed and optimized firmware and low-level drivers for consumer and industrial electronics.</p>
+      </li>
+    </ul>
+  </div>
+
+  <!-- QR Code -->
+  <div class="max-w-4xl mx-auto p-6 mt-8 frosted rounded-2xl shadow-xl flex flex-col items-center">
+    <h2 class="text-2xl font-bold text-indigo-600 mb-4">My QR Code</h2>
+    <div id="qrcode"></div>
+    <p class="mt-4 text-gray-600 dark:text-gray-400 text-sm">Scan to save my contact details</p>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // QR Code
+      new QRCode(document.getElementById('qrcode'), {
+        text: 'BEGIN:VCARD\nVERSION:3.0\nFN:Githin.v\nTITLE:Embedded Systems & Software Architect\nTEL:+91-9986613510\nEMAIL:vgithin@gmail.com\nADR:;;Your City, Country\nEND:VCARD',
+        width: 128,
+        height: 128
+      });
+
+      // Dark/Light Mode Toggle
+      const toggle = document.getElementById('darkModeToggle');
+      const knob = document.getElementById('toggleKnob');
+
+      const isDark = document.documentElement.classList.contains('dark');
+      toggle.checked = isDark;
+      knob.style.transform = isDark ? 'translateX(28px)' : 'translateX(0)';
+
+      toggle.addEventListener('change', () => {
+        const newTheme = toggle.checked ? 'dark' : 'light';
+        document.documentElement.classList.toggle('dark', newTheme === 'dark');
+        localStorage.setItem('theme', newTheme);
+        knob.style.transform = newTheme === 'dark' ? 'translateX(28px)' : 'translateX(0)';
+      });
+    });
+  </script>
+</body>
+</html>
